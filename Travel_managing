@@ -1,0 +1,400 @@
+#include<iostream>
+#include<fstream>
+#include<iomanip>
+#include<windows.h>
+
+ using namespace std;
+ void menu();
+
+class ManageMenu{
+    protected:
+        string userName;
+    public:
+    ManageMenu(){
+        system("color 0A"); // change terminal color;
+        cout<<"\n\n\n\n\n\n\t Enter Your Name to Continue as an Admin:";
+        cin>>userName;
+        system("CLS");
+        menu();
+    }
+    ~ManageMenu(){
+
+    }
+};
+
+class Customers{
+    public:
+        string name,gender,address;
+        int age,mobileNo;
+        static int cusID;
+        char all[9999];
+        void getDetails(){
+            ofstream out("old-customers.txt",ios::app);
+            {
+            cout<<"Enter Customer ID:";
+            cin>>cusID;
+            cout<<"Enter Name:";
+            cin>>name;
+            cout<<"Enter Age:";
+            cin>>age;
+            cout<<"Enter Mobile No:";
+            cin>>mobileNo;
+            cout<<"Enter Address: ";
+            cin>>address;
+            cout<<"Enter Gender:";
+            cin>>gender;
+            }
+            out<<"\nCustomer ID: "<<cusID<<"\nName:"<<name <<"\nAge:"<<age<<"\nMobile Number: "<<mobileNo<<"\nAddress:"<<address<<"\nGender:"<<gender<<endl;
+            out.close();
+            cout<<"\nSAVED \n NOTE: We save your details record for future purposes \n"<<endl;
+        }
+
+        void showDetails(){
+            ifstream in("old-customers.txt");
+            {
+                if(!in){
+                    cout<<"File Error!"<<endl;
+                }
+                while(!(in.eof())){
+                    in.getline(all,999);
+                    cout<<"all"<<endl;
+                }
+                in.close();
+            }
+        }
+
+};
+
+int Customers::cusID;
+class Cabs{
+    public:
+        int cabChoice;
+        int kilometers;
+        float cabCost;
+        static float lastcabcost;  
+
+        void cabDetails(){
+            cout<<"We collaborated with fastest,safest and smartest cab service around the country"<<endl;
+            cout<<"---------ABC Cabs---------\n"<<endl;
+            cout<<"1. Rent a Standard Cab- Rs. 15 for 1 KM"<<endl;
+            cout<<"2. Rent a Luxury Cab- Rs. 25 per 1 KM"<<endl;
+
+
+            cout<<"\nTo Calculate the cost for your journey :"<<endl;
+            cout<<"Enter which kind of cab you need:";
+            cin>>cabChoice;
+            cout<<"Enter kilometers you have to travel:";
+            cin>>kilometers;
+            int hireCab;
+            if(cabChoice==1){
+                cabCost = kilometers*15;
+                cout<<"\n Your tour cost "<<cabCost<<"rupees for a standard cab"<<endl;
+                cout<<"Enter 1 to hire this cab: or";
+                cout<<"Enter 2 to select another cab:";
+                cin>>hireCab;
+
+                system("CLS");
+                if(hireCab==1){
+                    lastcabcost=cabCost;
+                    cout<<"You have successfully hired a Standard Cab"<<endl;
+                    cout<<"Goto menu and take the receipt";
+                }
+                else if(hireCab==2){
+                    cabDetails();
+                }
+                else{
+                    cout<<"Invalid Input: Redirecting to previous menu \nPlease wait!!"<<endl;
+                    Sleep(999);
+                    system("CLS");
+                    cabDetails();
+
+                }
+            }
+            else{
+                cout<<"Invalid Input: Redirecting to previous menu \nPlease wait!!"<<endl;
+                Sleep(999);
+                system("CLS");
+            }
+            cout<<"\n Press 1 to Redirect main menu:";
+            cin>>hireCab;   
+            system("CLS");
+            
+        }
+};
+class Booking{
+    public:
+        int choiceHotel;
+        int packChoice;
+        static float hotelCost;
+
+        void hotels(){
+            string hotelNo[]={"Avendra","ChoiceYou","ElephantBay"};
+            for(int a=0;a<3;a++){
+                cout<<(a+1)<<".Hotel"<<hotelNo[a]<<endl;
+            }
+            cout<<"\n Currently we collaborated with above hotels!"<<endl;
+            cout<<"Press any key to back or \nEnter the number of hotels you want to book:";
+            cin>>choiceHotel;
+            system("CLS");
+            if(choiceHotel==1){
+                cout<<"---------WELCOME TO HOTEL AVENDRA-----\n"<<endl;
+                cout<<"The Garden,food and beverage. Enjoy all you can drink,Stay Cool and get chilled in the summer sun."<<endl;
+                cout<<"Packages offered by Avendra\n"<<endl;
+                cout<<"1.Standard Pack"<<endl;
+                cout<<"\tAll basic facilities you need just for: Rs.5000.0"<<endl;
+                cout<<"Premium Pack"<<endl;
+                cout<<"\tEnjoy Premium:Rs 10000"<<endl;
+                cout<<"Luxury Pack"<<endl;
+                cout<<"\t Live a luxury at Avendra: Rs. 15000"<<endl;
+
+                cout<<"\t Press anotheer key to go back";
+                cin>>packChoice;
+                if(packChoice==1){
+                    hotelCost=5000;
+                    cout<<"\nYou have successfully booked Standard Pack at Avendra"<<endl;
+                    cout<<"Goto Menu and take the receipt"<<endl;
+                }
+                else if(packChoice==2){
+                    hotelCost=10000;
+                    cout<<"\nYou have successfully booked Premium Pack at Avendra"<<endl;
+                    cout<<"Goto Menu and take the receipt"<<endl;
+                }
+                else if(packChoice==3){
+                    hotelCost=15000;
+                    cout<<"\nYou have successfully booked Luxury Pack at Avendra"<<endl;
+                    cout<<"Goto Menu and take the receipt"<<endl;
+                }
+                else{
+                    cout<<"Invalid Input! Redirecting to Previous Menu\nPlease Wait"<<endl;
+                    Sleep(1100);
+                    system("CLS");
+                    hotels();
+                }
+                int gotomenu;
+                cout<<"\nPress 1 to redirect main menu: ";
+                cin>>gotomenu;
+                
+            }
+            else if(choiceHotel==2){
+                cout<<"---------WELCOME TO HOTEL Choice You-----\n"<<endl;
+                cout<<"The Garden,food and beverage. Enjoy all you can drink,Stay Cool and get chilled in the summer sun."<<endl;
+                cout<<"Packages offered by Choice You\n"<<endl;
+                cout<<"1.Standard Pack"<<endl;
+                cout<<"\tAll basic facilities you need just for: Rs.5000.0"<<endl;
+                cout<<"Premium Pack"<<endl;
+                cout<<"\tEnjoy Premium:Rs 10000"<<endl;
+                cout<<"Luxury Pack"<<endl;
+                cout<<"\t Live a luxury at ChoiceYou: Rs. 15000"<<endl;
+
+                cout<<"\t Press another key to go back";
+                cin>>packChoice;
+                if(packChoice==1){
+                    hotelCost=5000;
+                    cout<<"\nYou have successfully booked Standard Pack at ChoiceYou"<<endl;
+                    cout<<"Goto Menu and take the receipt"<<endl;
+                }
+                else if(packChoice==2){
+                    hotelCost=10000;
+                    cout<<"\nYou have successfully booked Premium Pack at ChoiceYou"<<endl;
+                    cout<<"Goto Menu and take the receipt"<<endl;
+                }
+                else if(packChoice==3){
+                    hotelCost=15000;
+                    cout<<"\nYou have successfully booked Luxury Pack at ChoiceYou"<<endl;
+                    cout<<"Goto Menu and take the receipt"<<endl;
+                }
+                else{
+                    cout<<"Invalid Input! Redirecting to Previous Menu\nPlease Wait"<<endl;
+                    Sleep(1100);
+                    system("CLS");
+                    hotels();
+                }
+                int gotomenu;
+                cout<<"\nPress 1 to redirect main menu: ";
+                cin>>gotomenu;
+                
+            }
+            else{
+                cout<<"---------WELCOME TO HOTEL ElephantBay----\n"<<endl;
+                cout<<"The Garden,food and beverage. Enjoy all you can drink,Stay Cool and get chilled in the summer sun."<<endl;
+                cout<<"Packages offered by Choice You\n"<<endl;
+                cout<<"1.Standard Pack"<<endl;
+                cout<<"\tAll basic facilities you need just for: Rs.5000.0"<<endl;
+                cout<<"Premium Pack"<<endl;
+                cout<<"\tEnjoy Premium:Rs 10000"<<endl;
+                cout<<"Luxury Pack"<<endl;
+                cout<<"\t Live a luxury at ChoiceYou: Rs. 15000"<<endl;
+
+                cout<<"\t Press another key to go back";
+                cin>>packChoice;
+                if(packChoice==1){
+                    hotelCost=5000;
+                    cout<<"\nYou have successfully booked Standard Pack at ElephantBay"<<endl;
+                    cout<<"Goto Menu and take the receipt"<<endl;
+                }
+                else if(packChoice==2){
+                    hotelCost=10000;
+                    cout<<"\nYou have successfully booked Premium Pack at ElephantBay"<<endl;
+                    cout<<"Goto Menu and take the receipt"<<endl;
+                }
+                else if(packChoice==3){
+                    hotelCost=15000;
+                    cout<<"\nYou have successfully booked Luxury Pack at ElephantBay"<<endl;
+                    cout<<"Goto Menu and take the receipt"<<endl;
+                }
+                else{
+                    cout<<"Invalid Input! Redirecting to Previous Menu\nPlease Wait"<<endl;
+                    Sleep(1100);
+                    system("CLS");
+                    hotels();
+                }
+                int gotomenu;
+                cout<<"\nPress 1 to redirect main menu: ";
+                cin>>gotomenu;
+            }
+        }
+};
+float Booking::hotelCost;
+float Cabs:: lastcabcost;
+class Charges : public Booking,Cabs,Customers
+{
+    public:
+       void printBill(){
+         ofstream outf("receipt.txt");
+         {
+            outf<<"------ABC Travel Agency--------"<<endl;
+            outf<<"------------Receipt------------"<<endl;
+            outf<<"________________________________"<<endl;
+            outf<<"Customer ID:"<<Customers::cusID<<endl<<endl;
+            outf<<"Description \t\t Total"<<endl;
+            outf<<"Hotel Cost \t\t"<<fixed<<setprecision(2)<<Cabs::lastcabcost<<endl;
+            outf<<"Travel(cab) cost:\t"<<fixed<<setprecision(2)<<Cabs::lastcabcost<<endl;
+            outf<<"________________________________"<<endl;
+            outf<<"Total Charge:\t\t"<<fixed<<setprecision(2)<<Booking::hotelCost+Cabs::lastcabcost<<endl;
+            outf<<"________________________________"<<endl;
+            outf<<"---------THANK YOU---------------"<<endl;
+         }
+         outf.close();
+
+       } 
+       void showBill(){
+        ifstream inf("receipt.txt");
+        {
+            if(!inf){
+                cout<<"File Opening Error!"<<endl;
+
+            }
+            while(!(inf.eof())){
+                inf.getline(all,999);
+                cout<<all<<endl;
+            }
+        }
+        inf.close();
+       }
+};
+
+void menu(){
+    int mainChoice;
+    int inChoice;
+    int gotoMenu;
+
+
+    cout<<"\t\t        *ABC Travels  *    \n"<<endl;
+    cout<<"--------------------Main Menu--------------"<<endl;
+    cout<<"\t__________________________________________"<<endl;
+    cout<<"\t|\t\t\t\t\t\t|"<<endl;
+    cout<<"\t|\tCustomer Management-->1\t|"<<endl;
+    cout<<"\t|\tCabs Management-->2\t|"<<endl;
+    cout<<"\t|\tBookings Management-->3\t|"<<endl;
+    cout<<"\t|\tCharges & Bill-->4\t|"<<endl;
+    cout<<"\t|\tExit          -->5\t|"<<endl;
+    cout<<"\t|t\t\t\t\t\t\t\t\t\t"<<endl;
+    cout<<"\t|________________________________|"<<endl;
+
+    cout<<"\nEnter your choice:";
+    cin>>mainChoice;
+    system("CLS");
+    Customers a2;
+    Cabs a3;
+    Booking a4;
+    Charges a5;
+    if(mainChoice==1){
+        cout<<"----Customers------\n"<<endl;
+        cout<<"1.Enter the New Customer"<<endl;
+        cout<<"2. See Old Customers"<<endl;
+
+        cout<<"\n Enter Choice:";
+        cin>>inChoice;
+        system("CLS");
+        if(inChoice==1){
+            a2.getDetails();
+        }
+        else if(inChoice==2){
+            a2.showDetails();
+        }
+        else{
+            cout<<"Invalid Input! Redirecting to Previous Menu\nPlease Wait"<<endl;
+            Sleep(1100);
+            system("CLS");
+            menu();
+        }
+        cout<<"\n Press 1 to Redirect to main menu : ";
+        cin>>gotoMenu;
+        system("CLS");
+        if(gotoMenu==1){
+            menu();
+        }
+        else{
+            menu();
+        }
+    }
+    else if(mainChoice==2){
+        a3.cabDetails();
+    }
+    else if(mainChoice==3){
+        cout<<"---> Book a luxury hotel usinf the system <---"<<endl;
+        a4.hotels();
+    }
+    else if(mainChoice==4){
+        cout<<"-->Get Your receipt <--"<<endl;
+        a5.printBill();
+
+        cout<<"Your receipt is already printed you can get it from file path \n"<<endl;
+        cout<<"to display the recipt in the screen, Enter 1 or Enter another key to get to back main menu:";
+        cin>>gotoMenu;
+        if(gotoMenu==1){
+            system("CLS");
+            a5.showBill();
+            cout<<"\nPress 1 to redirect ot main menu:";
+            cin>>gotoMenu;
+            system("CLS");
+            if(gotoMenu==1){
+                menu();
+            }
+            else{
+                menu();
+            }
+        }
+        else{
+           system("CLS");
+           menu(); 
+        }
+    }
+    else if(mainChoice==5){
+        cout<<"--GOOD BYE --"<<endl;
+        Sleep(999);
+        system("CLS");
+        menu();
+    }
+    else{
+       cout<<"Invalid Input! Redirecting to Previous Menu\nPlease Wait"<<endl;
+            Sleep(1100);
+            system("CLS");
+            menu(); 
+    }
+}
+
+int main(){
+     ManageMenu startObj;
+    return 0;
+}
